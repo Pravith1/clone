@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post with Comments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f2ef;
+            padding: 20px;
+        }
+
+        .container {
+            width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .top-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .reactions {
+            display: flex;
+            align-items: center;
+        }
+
+        .reaction-icon {
+            width: 20px;
+            margin-right: 5px;
+        }
+
+        .reaction-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .post-interaction {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .interaction {
+            display: flex;
+            align-items: center;
+            color: #666;
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.1s ease;
+            padding: 1px 1px;
+            border-radius: 10px;
+        }
+
+        .interaction:active {
+            transform: scale(0.95);
+            background-color: #e0e0e0;
+        }
+
+        .interaction svg {
+            width: 10px;
+            margin-right: 10px;
+        }
+
+        .comment-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .comment-box img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .comment-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .comments {
+            margin-top: 10px;
+        }
+
+        .comment {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .comment img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .comment-content {
+            background-color: #f3f2ef;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .comment-content h4 {
+            font-size: 14px;
+            color: #0073b1;
+            margin-bottom: 5px;
+        }
+
+        .comment-content p {
+            font-size: 13px;
+            color: #333;
+        }
+
+        .comment-actions {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .comment-actions svg {
+            width: 16px;
+            margin-right: 5px;
+        }
+
+        .comment-actions span {
+            font-size: 12px;
+            color: #666;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* Initially hide extra comments */
+        .more-comments {
+            display: none;
+        }
+
+        /* Style for the post content */
+        .post-content {
+            margin-bottom: 20px;
+        }
+
+        .post-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- JavaScript to toggle comment visibility -->
+    <script>
+        function toggleComments(postId) {
+            const commentsSection = document.getElementById('comments-' + postId);
+            const moreComments = commentsSection.querySelector('.more-comments');
+            moreComments.style.display = moreComments.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+
+    <!-- Start of Post 1 -->
+    <div class="container">
+        <div class="top-section">
+            <div class="reactions">
+                <img src="like-icon.png" class="reaction-icon" alt="like icon">
+                <img src="love_icon.png" class="reaction-icon" alt="love icon">
+                <p class="reaction-text">102 and others</p>
+            </div>
+            <p class="reaction-text">4 comments · 1 repost</p>
+        </div>
+
+        <!-- Post Content -->
+        <div class="post-content">
+            <img src="./posts1.png" alt="Post Image 1">
+            <h3>Surpassing 100 Million Users!</h3>
+            <p>📢 Milestone Alert! 🎉
+
+                I am beyond thrilled to announce that FinSecure has officially surpassed 100 million users! 🚀 This is not just a number, but a testament to our relentless pursuit of excellence and innovation in the fintech world. Our user base has now surpassed all our competitors, solidifying our position as a leader in India’s digital payments space.
+                
+                💡 What started as an ambitious vision to simplify and secure UPI payments has now become a reality, thanks to the trust of our users and the dedication of the FinSecure team. This is just the beginning — we’re only going to grow from here!
+                
+                A heartfelt thank you to everyone who believed in our mission. Let's continue revolutionizing the future of fintech together!
+                </p>
+                <br>
+            <p>
+                
+                #Fintech #100MillionStrong #DigitalIndia #UPI #FinSecure #Growth #Innovation</p>
+        </div>
+
+        <div class="post-interaction">
+            <div class="interaction" onclick="toggleComments(1)">
+                <i class="fas fa-comment"></i>Comment
+            </div>
+            <div class="interaction">
+                <i class="fas fa-thumbs-up"></i> Like
+
+            </div>
+            <div class="interaction">
+                <svg><!-- Repost SVG icon here --></svg>
+                <span>Repost</span>
+            </div>
+            <div class="interaction">
+                <i class="fas fa-share"></i> Share
+            </div>
+        </div>
+
+        <!-- Comment Box -->
+        <div class="comment-box">
+            <img src="./user.png" alt="User Profile">
+            <input type="text" class="comment-input" placeholder="Add a comment...">
+        </div>
+
+        <!-- Comments Section (Post 1) -->
+        <div class="comments" id="comments-1">
+            <!-- First comment (always visible) -->
+            <div class="comment">
+                <img src="./kiran.jpg" alt="Sanjay's Profile">
+                <div class="comment-content">
+                    <h4>Kiran Takur · 1st</h4>
+                    <p>"Well, well, well. Looks like someone's finally catching up to us. But don't worry, FinSecure, we'll always be one step ahead."</p>
+                </div>
+            </div>
+
+            <!-- Additional comments (hidden initially) -->
+            <div class="more-comments">
+                <div class="comment">
+                    <img src="./eye_profile.jpg" alt="The Eye Profile">
+                    <div class="comment-content">
+                        <h4>The Eye · 139 followers</h4>
+                        <p>Wow, what a fantastic achievement! I'm so impressed by FinSecure's growth. This is a testament to the hard work and dedication of the entire team. Keep up the great work!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Post 1 -->
+
+    <!-- Start of Post 2 -->
+    <div class="container">
+        <div class="top-section">
+            <div class="reactions">
+                <img src="like-icon.png" class="reaction-icon" alt="like icon">
+                <img src="love_icon.png" class="reaction-icon" alt="love icon">
+                <p class="reaction-text">You and 20 others</p>
+            </div>
+            <p class="reaction-text">2 comments · 3 reposts</p>
+        </div>
+
+        <!-- Post Content -->
+        <div class="post-content">
+            <img src="./post2.png" alt="Post Image 2">
+            <h3> A Game-Changing Patent in Digital Payments!</h3>
+            <p>🔑 We’re Changing the Game! 🏅
+
+                Today, I’m proud to share that FinSecure has been granted an exclusive patent for our biometric-based UPI transaction system, combining fingerprint and FaceID verification with the Aadhaar database. This groundbreaking technology promises to take digital payments security to the next level, reducing fraud and enhancing user confidence. 🙌
+                
+                This patent is not just a win for FinSecure, but for the entire fintech ecosystem, as we continue to lead with innovations that truly matter. Our system is poised to become a gold standard in digital payments security.
+                
+                The future of secure and seamless payments is here. Onwards and upwards!
+                
+                </p>
+                <br>
+                <a href="https://drive.google.com/file/d/1S1gHrsRGhsezz9B_D0aS5UVGCTWjmlFe/view?usp=drive_link">Notification of Patent Granted - FinSecure Ltd - Fingerprint based UPI</a>
+                <br>
+                <br>
+                <a href="https://drive.google.com/file/d/1GE6JHHfqQ-ItFm_UQ79lZD_4b7A-TyxF/view?usp=drive_link">Notification of Patent Granted - FinSecure Ltd - Face ID based UPI</a>
+                <br>
+                <br>
+            <p>#PatentGranted #FintechInnovation #UPISecurity #DigitalPayments #FinSecure</p>
+        </div>
+        <div class="post-interaction">
+            <div class="interaction" onclick="toggleComments(1)">
+                <i class="fas fa-comment"></i>Comment
+            </div>
+            <div class="interaction">
+                <i class="fas fa-thumbs-up"></i> Like
+
+            </div>
+            <div class="interaction">
+                <svg><!-- Repost SVG icon here --></svg>
+                <span>Repost</span>
+            </div>
+            <div class="interaction">
+                <i class="fas fa-share"></i> Share
+            </div>
+        </div>
+
+        <!-- Comment Box -->
+        <div class="comment-box">
+            <img src="./user.png" alt="User Profile">
+            <input type="text" class="comment-input" placeholder="Add a comment...">
+        </div>
+
+        <!-- Comments Section (Post 2) -->
+        <div class="comments" id="comments-2">
+            <!-- First comment (always visible) -->
+            <div class="comment">
+                <img src="./kiran.jpg" alt="John's Profile">
+                <div class="comment-content">
+                    <h4>Kiran thakur · 1st</h4>
+                    <p>"Patents? We've got those in abundance. Try keeping up with the real innovators."</p>
+                </div>
+            </div>
+
+            <!-- Additional comments (hidden initially) -->
+            <div class="more-comments">
+                <div class="comment">
+                    <img src="michael_profile.png" alt="Michael's Profile">
+                    <div class="comment-content">
+                        <h4>Kiran thakur 1st</h4>
+                        <p>"Patents? We've got those in abundance. Try keeping up with the real innovators."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Post 2 -->
+
+    <div class="container">
+        <div class="top-section">
+            <div class="reactions">
+                <img src="like-icon.png" class="reaction-icon" alt="like icon">
+                <img src="love_icon.png" class="reaction-icon" alt="love icon">
+                <p class="reaction-text">You and 20 others</p>
+            </div>
+            <p class="reaction-text">2 comments · 3 reposts</p>
+        </div>
+
+        <!-- Post Content -->
+        <div class="post-content">
+            <img src="./post3.jpg" alt="Post Image 2">
+            <h3> Acknowledged as the Best Fintech Startup
+            </h3>
+            <p>🏆 Proud Moment for FinSecure! 🌟
+
+                I’m incredibly proud to announce that FinSecure has been recognized as the Best Fintech Startup of the Year at the India Fintech Excellence Awards 2024. This award validates the hard work of our entire team, and the innovative solutions we’re bringing to the digital payments industry.
+                
+                We are dedicated to making payments faster, more secure, and more inclusive, and this award is a great acknowledgment of our efforts.
+                
+                This recognition fuels us to work even harder and continue pushing the boundaries of what's possible in fintech. Here's to many more milestones to come!
+                </p>
+                <br>
+            <p>#FintechAwards #BestStartup #InnovationInPayments #FinSecure #Teamwork</p>
+        </div>
+
+        <div class="post-interaction">
+            <div class="interaction" onclick="toggleComments(1)">
+                <i class="fas fa-comment"></i>Comment
+            </div>
+            <div class="interaction">
+                <i class="fas fa-thumbs-up"></i> Like
+
+            </div>
+            <div class="interaction">
+                <svg><!-- Repost SVG icon here --></svg>
+                <span>Repost</span>
+            </div>
+            <div class="interaction">
+                <i class="fas fa-share"></i> Share
+            </div>
+        </div>
+
+        <!-- Comment Box -->
+        <div class="comment-box">
+            <img src="./user.png" alt="User Profile">
+            <input type="text" class="comment-input" placeholder="Add a comment...">
+        </div>
+
+        <!-- Comments Section (Post 2) -->
+        <div class="comments" id="comments-2">
+            <!-- First comment (always visible) -->
+            <div class="comment">
+                <img src="./kiran.jpg" alt="John's Profile">
+                <div class="comment-content">
+                    <h4>Kiran thakur · 1st</h4>
+                    <p>"Awards? We've got a trophy cabinet full of them. Just another day in the office for us."</p>
+                </div>
+            </div>
+
+            <!-- Additional comments (hidden initially) -->
+            <div class="more-comments">
+                <div class="comment">
+                    <img src="michael_profile.png" alt="Michael's Profile">
+                    <div class="comment-content">
+                        <h4>Michael G · 245 followers</h4>
+                        <p>Impressive work, I'm really excited to see what you guys come up with next!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Post 2 -->
+
+
+
+    <div class="container">
+        <div class="top-section">
+            <div class="reactions">
+                <img src="like-icon.png" class="reaction-icon" alt="like icon">
+                <img src="love_icon.png" class="reaction-icon" alt="love icon">
+                <p class="reaction-text">You and 20 others</p>
+            </div>
+            <p class="reaction-text">2 comments · 3 reposts</p>
+        </div>
+
+        <!-- Post Content -->
+        <div class="post-content">
+            <img src="./post4.png" alt="Post Image 2">
+            <h3>Breaking Barriers with 1 Billion Transactions!</h3>
+            <p>⚡ Transaction Milestone Alert! ⚡
+
+                Today, we are celebrating another monumental achievement — FinSecure has successfully processed 1 billion UPI transactions! 🎉 With every tap, swipe, and scan, we’ve been able to make payments easier, faster, and more secure for millions of users across the country. 🇮🇳
+                
+                This achievement reflects the robustness of our infrastructure and the trust of our users. It is a major step in our journey to revolutionize the fintech landscape.
+                
+                Thank you to our partners, users, and the entire FinSecure family for making this milestone possible. Let’s gear up for even bigger things!                
+                </p>
+                <br>
+            <p>#1BillionTransactions #FintechRevolution #UPI #FinSecure #MilestoneAchieved #FutureOfPayments</p>
+        </div>
+
+        <div class="post-interaction">
+            <div class="interaction" onclick="toggleComments(1)">
+                <i class="fas fa-comment"></i>Comment
+            </div>
+            <div class="interaction">
+                <i class="fas fa-thumbs-up"></i> Like
+
+            </div>
+            <div class="interaction">
+                <svg><!-- Repost SVG icon here --></svg>
+                <span>Repost</span>
+            </div>
+            <div class="interaction">
+                <i class="fas fa-share"></i> Share
+            </div>
+        </div>
+
+        <!-- Comment Box -->
+        <div class="comment-box">
+            <img src="./user.png" alt="User Profile">
+            <input type="text" class="comment-input" placeholder="Add a comment...">
+        </div>
+
+        <!-- Comments Section (Post 2) -->
+        <div class="comments" id="comments-2">
+            <!-- First comment (always visible) -->
+            <div class="comment">
+                <img src="./kiran.jpg" alt="John's Profile">
+                <div class="comment-content">
+                    <h4>Kiran thakur · 1st</h4>
+                    <p>"1 billion transactions? That's cute. We hit that number years ago. Try keeping up."</strong></p>
+                </div>
+            </div>
+
+            <!-- Additional comments (hidden initially) -->
+            <div class="more-comments">
+                <div class="comment">
+                    <img src="michael_profile.png" alt="Michael's Profile">
+                    <div class="comment-content">
+                        <h4>Michael G · 245 followers</h4>
+                        <p>Impressive work, I'm really excited to see what you guys come up with next!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Post 2 -->
+
+
+    
+</body>
+</html>

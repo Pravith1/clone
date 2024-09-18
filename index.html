@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Profile Replica</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;
+            background-color: #f3f2ef;
+            color: rgba(0, 0, 0, 0.9);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1128px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Header styles */
+        header {
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0 16px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 52px;
+        }
+
+        .logo img {
+            width: 34px;
+            height: 34px;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 10px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 5px 10px;
+            border: none;
+            background-color: #eef3f8;
+            border-radius: 4px;
+        }
+
+        .nav-icons {
+            display: flex;
+        }
+
+        .nav-icon {
+            margin-left: 24px;
+            color: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .nav-icon i {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Main content layout */
+        .main-content {
+            display: flex;
+            margin-top: 76px;
+            gap: 24px;
+        }
+
+        .profile-section {
+            flex: 3;
+        }
+
+        .sidebar {
+            flex: 1;
+        }
+
+        /* Profile card styles */
+        .profile-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+            margin-bottom: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-background {
+            height: 200px;
+            background-image: url('./image.png');
+            background-size: cover;
+            position: relative;
+        }
+
+        .profile-background-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(226, 223, 223, 0.6));
+        }
+
+        .profile-info {
+            padding: 24px;
+            position: relative;
+        }
+
+        .profile-picture {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 4px solid white;
+            position: absolute;
+            top: -80px;
+            left: 24px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 80px;
+        }
+
+        .profile-headline {
+            margin-top: 4px;
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .profile-location {
+            margin-top: 4px;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .profile-connections {
+            margin-top: 4px;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .profile-actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #0a66c2;
+            color: white;
+            border: none;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #0a66c2;
+            border: 1px solid #0a66c2;
+        }
+
+        .btn-tertiary {
+            background-color: transparent;
+            color: rgba(0, 0, 0, 0.6);
+            border: none;
+        }
+
+        /* About section styles */
+        .about-section {
+            padding: 24px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Experience section styles */
+        .experience-section {
+            padding: 24px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+            margin-bottom: 24px;
+        }
+
+        .experience-item {
+            display: flex;
+            margin-bottom: 16px;
+        }
+
+        .experience-logo {
+            width: 48px;
+            height: 48px;
+            margin-right: 16px;
+        }
+
+        .experience-details h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .experience-details p {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Skills section styles */
+        .skills-section {
+            padding: 24px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+            margin-bottom: 24px;
+        }
+
+        .skill-item {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        /* Activities section styles */
+        .activities-section {
+            padding: 24px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+            margin-bottom: 24px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .activity-logo {
+            width: 48px;
+            height: 48px;
+            margin-right: 16px;
+        }
+
+        .activity-details h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .activity-details p {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .btn-view-all {
+            margin-top: 16px;
+            padding: 8px 16px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 16px;
+            background-color: #0a66c2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            width: 100%;
+        }
+
+        /* Projects section styles */
+        .projects-section {
+            padding: 24px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+            margin-bottom: 24px;
+        }
+
+        .project-item {
+            margin-bottom: 16px;
+        }
+
+        .project-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: sticky;
+            top: 76px;
+        }
+
+        .sidebar-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-section ul {
+            list-style-type: none;
+        }
+
+        .sidebar-section li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-section a {
+            text-decoration: none;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .sidebar-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="./logo.png" alt="LinkedIn Logo">
+            </div>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search">
+            </div>
+            <div class="nav-icons">
+                <div class="nav-icon">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </div>
+                <div class="nav-icon">
+                    <i class="fas fa-user"></i>
+                    <span>My Network</span>
+                </div>
+                <div class="nav-icon">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Jobs</span>
+                </div>
+                <div class="nav-icon">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </div>
+                <div class="nav-icon">
+                    <i class="fas fa-inbox"></i>
+                    <span>Messaging</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <div class="profile-section">
+            <div class="profile-card">
+                <div class="profile-background">
+                    <div class="profile-background-overlay"></div>
+                </div>
+                <div class="profile-info">
+                    <img src="man.jpeg" alt="Profile Picture" class="profile-picture">
+                    <div class="profile-details">
+                        <div class="profile-name">Rajiv Mehta</div>
+                        <div class="profile-headline">CEO at FinSecure</div>
+                        <div class="profile-location">Mumbai, India</div>
+                        <div class="profile-connections">500+ connections</div>
+                        <div class="profile-actions">
+                            <button class="btn btn-primary">Connect</button>
+                            <button class="btn btn-secondary">Message</button>
+                            <button class="btn btn-tertiary">More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2 class="section-title">About</h2>
+                <p>Experienced CEO with a demonstrated history of working in the financial services industry. Skilled in FinTech, Digital Payments, and Biometric Security. Strong business development professional with a Master of Business Administration (MBA) focused on Finance from Indian School of Business.</p>
+            </div>
+
+            <div class="experience-section">
+                <h2 class="section-title">Experience</h2>
+                <div class="experience-item">
+                    <img src="experience.png" alt="FinSecure Logo" class="experience-logo">
+                    <div class="experience-details">
+                        <h3>CEO at FinSecure</h3>
+                        <p>Leading the company's vision to provide secure digital payment solutions and advancing biometric payment systems.</p>
+                    </div>
+                </div>
+                <!-- Add more experience items as needed -->
+            </div>
+
+            <div class="skills-section">
+                <h2 class="section-title">Skills</h2>
+                <div class="skill-item">FinTech Innovation</div>
+                <div class="skill-item">Digital Payment Solutions</div>
+                <div class="skill-item">Biometric Security</div>
+                <!-- Add more skills as needed -->
+            </div>
+
+            <div class="activities-section">
+                <h2 class="section-title">Activity</h2>
+                <div class="activity-item">
+                    <img src="./activity.png" alt="Activity Logo" class="activity-logo">
+                    <div class="activity-details">
+                        <h3>Revolutionizing UPI: What’s Next?</h3>
+                        <p>Join Rajiv Mehta as he explores the future of UPI technology and its impact on digital payments.</p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <img src="experience.png" alt="Activity Logo" class="activity-logo">
+                    <div class="activity-details">
+                        <h3>Securing Digital Transactions: New Protocols</h3>
+                        <p>Discover the latest advancements in security protocols for digital transactions from FinSecure.</p>
+                    </div>
+                </div>
+                <button class="btn-view-all"><a href="posts.html">View All Posts</a></button>
+            </div>
+
+            <div class="projects-section">
+                <h2 class="section-title">Projects</h2>
+                <div class="project-item">
+                    <div class="project-title">Biometric Payment System</div>
+                    <p class="project-description">A cutting-edge payment system integrating biometric technology with UPI for enhanced security and user experience.</p>
+                </div>
+                <!-- Add more projects as needed -->
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h2>Groups</h2>
+                <ul>
+                    <li><a href="#">FinTech Innovators</a></li>
+                    <li><a href="#">Digital Payment Solutions</a></li>
+                    <li><a href="#">Biometric Security Enthusiasts</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h2>Pages</h2>
+                <ul>
+                    <li><a href="#">FinSecure</a></li>
+                    <li><a href="#">LinkedIn Learning</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h2>Events</h2>
+                <ul>
+                    <li><a href="#">FinTech Conference 2024</a></li>
+                    <li><a href="#">Digital Payment Symposium</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
